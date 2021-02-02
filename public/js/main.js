@@ -2,22 +2,7 @@
 let ecranP = document.querySelector('#ecranP');
 let calcMain = document.querySelector('#calcMain');
 
-let calculer = (n1, operator, n2) => {
-    let result = ''
-    if (operator === 'add') {
-        result = parseFloat(n1) + parseFloat(n2)
-    } else if (operator === 'subtract') {
-        result = parseFloat(n1) - parseFloat(n2)
-    } else if (operator === 'multiply') {
-        result = parseFloat(n1) * parseFloat(n2)
-    } else if (operator === 'divide') {
-        result = parseFloat(n1) / parseFloat(n2)
-    }
-    if (result == '69') {
-        calcMain.setAttribute('style','background-color: black;')
-    }
-    return result
-}
+import {calculer} from './calculer.js'
 
 calcMain.addEventListener('click', (e) => {
     let key = e.target
@@ -25,13 +10,13 @@ calcMain.addEventListener('click', (e) => {
     let displayedNum = ecranP.textContent
     if (key.matches('button')) {
         if (key.value === 'add' || key.value === 'subtract' || key.value === 'multiply' || key.value === 'divide') {
-            calcMain.dataset.previousKeyType = 'operator'
+            calcMain.dataset.shleeb = 'floob'
             calcMain.dataset.firstValue = displayedNum
             calcMain.dataset.operator = key.value
         } else if (key.value === 'calculate') {
             let firstValue = calcMain.dataset.firstValue
             let operator = calcMain.dataset.operator
-            let secondValue = ecranP.innerText
+            let secondValue = displayedNum
             ecranP.innerText = calculer(firstValue, operator, secondValue)
         } else if (key.value === 'clear') {
             ecranP.innerText = 0
@@ -40,9 +25,9 @@ calcMain.addEventListener('click', (e) => {
         } else if (key.value === 'virgule') {
             ecranP.textContent = displayedNum + '.'
         } else {
-            if (displayedNum === '0' || calcMain.dataset.previousKeyType === 'operator') {
+            if (displayedNum === '0' || calcMain.dataset.shleeb === 'floob') {
                 ecranP.textContent = keyContent
-                calcMain.removeAttribute('data-previous-key-type')
+                calcMain.removeAttribute('data-shleeb')
             } else {
                 ecranP.textContent = displayedNum + keyContent
             }
